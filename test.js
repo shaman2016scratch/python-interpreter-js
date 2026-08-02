@@ -1,3 +1,3 @@
 import PythonInterpreter from "."
 
-const python = new PythonInterpreter
+const python = new PythonInterpreter()
