@@ -1,3 +1,5 @@
+import Error from "./error.js"
+
 class interpreter {
   constructor (py) {
     this.python = py
@@ -6,8 +8,13 @@ class interpreter {
   interpretation () {
     const code = py
     let interpreterData = {
-      line: 0,
-      symbol: 0
+      line: -1,
+      symbol: -1
+    }
+    const lines = code.split("\n")
+    const tab = "\t"
+    for (let i = 0; i < lines.length; i++) {
+      interpreterData.line = i
     }
   }
 }
