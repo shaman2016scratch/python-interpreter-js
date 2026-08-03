@@ -1,5 +1,4 @@
 import interpreter from "./src/interpreter.js"
-import Import from "./src/import.js"
 
 class PythonInterpreter {
   constructor (code, type, imports) {
@@ -9,19 +8,19 @@ class PythonInterpreter {
   }
 
   async runAsEval () {
-    const result = new interpreter(this.code)
+    const result = new interpreter(this.code, imports)
     await result.interpretation()
     result.eval()
   }
 
   async runAsFunction () {
-    const result = new interpreter(this.code)
+    const result = new interpreter(this.code, imports)
     await result.interpretation()
     result.func()
   }
 
   async interpretation () {
-    const result = new interpreter(this.code)
+    const result = new interpreter(this.code, imports)
     await result.interpretation()
     return result.generated
   }
