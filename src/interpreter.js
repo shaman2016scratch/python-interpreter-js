@@ -17,7 +17,9 @@ class interpreter {
         float: typeof 1.5,
         complex: undefined,
         bool: typeof true,
-        list: typeof []
+        list: typeof [],
+        function: typeof (() => {}),
+        class: typeof (class { constructor () {} })
       };
       const jsTypes = {
         string: 'str',
@@ -44,7 +46,12 @@ class interpreter {
         }
       };
       let packages = [];
-      let variablesData = {};
+      let variablesData = {
+        "str": types.function,
+        "int": types.function,
+        "bool": types.function,
+        "type": types.function
+      };
     `
   }
 
