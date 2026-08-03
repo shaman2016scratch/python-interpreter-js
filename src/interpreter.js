@@ -74,6 +74,8 @@ class interpreter {
           } else if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2)].join("") === "def") {
             this.generated += replaces.defStart
             interpreterData.tabs += [tab, tab].join("")
+          } else {
+            const error = new Error()
           }
         }
       }
