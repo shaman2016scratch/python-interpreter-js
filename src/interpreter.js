@@ -77,6 +77,7 @@ class interpreter {
             interpreterData.symbol = interpreterData.symbol + 2
           } else {
             const error = new Error(`Unknown command`, interpreterData)
+            error.syntax()
           }
         }
       }
