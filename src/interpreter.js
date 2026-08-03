@@ -11,7 +11,38 @@ class interpreter {
         ${metadata.name} - library for run Python3 code in JavaScript.
         ${metadata.links.source_code}
       */
-      let variables = {}
+      const types = {
+        str: typeof "",
+        int: typeof 0,
+        float: typeof 1.5,
+        complex: undefined,
+        bool: typeof true,
+        list: typeof []
+      }
+      const jsTypes = {
+        string: 'str',
+        number: 'int',
+        boolean: 'bool',
+        array: 'object'
+      }
+      let variables = {
+        str: function (text) {
+          return toString(text)
+        },
+        int: function (num) {
+          return +num
+        },
+        bool: function (bool) {
+          if (bool) {
+            return true
+          } else {
+            return false
+          }
+        },
+        type: function (text) {
+          return jsTypes[typeof text]
+        }
+      }
       let packages = []
       let variablesData = {}
     `
