@@ -4,7 +4,7 @@ import replaces from "./replaces.js"
 import Import from "./import.js"
 
 class interpreter {
-  constructor (py) {
+  constructor (py, imports) {
     this.python = py
     this.generated = `
       /*
@@ -54,6 +54,7 @@ class interpreter {
         "type": types.function
       };
     `
+    this.imports = new Import(imports)
   }
 
   interpretation () {
