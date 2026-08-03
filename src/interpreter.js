@@ -68,14 +68,15 @@ class interpreter {
         const symbol = getSymbol(sNum)
         if (sNum === 0) {
           if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2), getSymbol(sNum + 3)].join("") === "from") {
-            // no created
+            interpreterData.symbol = interpreterData.symbol + 3
           } else if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2), getSymbol(sNum + 3), getSymbol(sNum + 4), getSymbol(sNum + 5)].join("") === "import") {
-            // no created
+            interpreterData.symbol = interpreterData.symbol + 5
           } else if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2)].join("") === "def") {
             this.generated += replaces.defStart
             interpreterData.tabs += [tab, tab].join("")
+            interpreterData.symbol = interpreterData.symbol + 2
           } else {
-            const error = new Error()
+            const error = new Error(`Unknown command`, interpreterData)
           }
         }
       }
