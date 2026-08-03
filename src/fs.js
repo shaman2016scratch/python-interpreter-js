@@ -1,3 +1,5 @@
+import fs from "node:fs"
+
 class VirtualFS {
   constructor () {}
 }
