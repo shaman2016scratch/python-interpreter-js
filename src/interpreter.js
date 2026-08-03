@@ -1,5 +1,6 @@
 import Error from "./error.js"
 import metadata from "./metadata.js"
+import replaces from "./replaces.js"
 
 class interpreter {
   constructor (py) {
@@ -12,6 +13,7 @@ class interpreter {
       */
       let variables = {}
       let packages = []
+      let variablesData = {}
     `
   }
 
