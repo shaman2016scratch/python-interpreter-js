@@ -93,6 +93,14 @@ class interpreter {
       }
     }
   }
+
+  eval () {
+    eval(this.generated)
+  }
+
+  func () {
+    (new Function(this.generated))()
+  }
 }
 
 export default interpreter
