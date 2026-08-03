@@ -85,7 +85,8 @@ class interpreter {
             interpreterData.tabs += [tab, tab].join("")
             interpreterData.symbol = interpreterData.symbol + 2
           } else if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2)].join("") === "err") {
-            const 
+            this.generated += `сonsole.error('')`
+            interpreterData.symbol = interpreterData.symbol + 2
           } else {
             const error = new Error(`Unknown command`, interpreterData)
             error.syntax()
