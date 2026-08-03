@@ -1,4 +1,7 @@
 const replaces = {
   "print": "console.log('{content}')",
-  "def": "variables.{name} = function ({args}) { {interpretedContent} }"
+  "defStart": "variables.{name} = function ({args}) {",
+  "defEnd": "}"
 }
+
+export default replaces
