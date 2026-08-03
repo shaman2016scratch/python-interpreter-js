@@ -18,33 +18,33 @@ class interpreter {
         complex: undefined,
         bool: typeof true,
         list: typeof []
-      }
+      };
       const jsTypes = {
         string: 'str',
         number: 'int',
         boolean: 'bool',
         array: 'object'
-      }
+      };
       let variables = {
         str: function (text) {
-          return toString(text)
+          return toString(text);
         },
         int: function (num) {
-          return +num
+          return +num;
         },
         bool: function (bool) {
           if (bool) {
-            return true
+            return true;
           } else {
-            return false
-          }
+            return false;
+          };
         },
         type: function (text) {
-          return jsTypes[typeof text]
+          return jsTypes[typeof text];
         }
-      }
-      let packages = []
-      let variablesData = {}
+      };
+      let packages = [];
+      let variablesData = {};
     `
   }
 
@@ -52,7 +52,8 @@ class interpreter {
     const code = py
     let interpreterData = {
       line: -1,
-      symbol: -1
+      symbol: -1,
+      tabs: ""
     }
     const lines = code.split("\n")
     const tab = "\t"
@@ -65,6 +66,16 @@ class interpreter {
         }
         const sNum = interpreterData.symbol
         const symbol = getSymbol(sNum)
+        if (sNum === 0) {
+          if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2), getSymbol(sNum + 3)].join("") === "from") {
+            // no created
+          } else if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2), getSymbol(sNum + 3), getSymbol(sNum + 4), getSymbol(sNum + 5)].join("") === "import") {
+            // no created
+          } else if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2)].join("") === "def") {
+            this.generated += replaces.defStart
+            interpreterData.tabs += [tab, tab].join("")
+          }
+        }
       }
     }
   }
