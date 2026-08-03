@@ -1,6 +1,7 @@
 import Error from "./error.js"
 import metadata from "./metadata.js"
 import replaces from "./replaces.js"
+import Import from "./import.js"
 
 class interpreter {
   constructor (py) {
@@ -82,6 +83,8 @@ class interpreter {
             this.generated += replaces.defStart
             interpreterData.tabs += [tab, tab].join("")
             interpreterData.symbol = interpreterData.symbol + 2
+          } else if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2)].join("") === "err") {
+            const 
           } else {
             const error = new Error(`Unknown command`, interpreterData)
             error.syntax()
