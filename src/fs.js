@@ -4,6 +4,11 @@ class VirtualFS {
   constructor () {}
 }
 
-const PyFS = {}
+class PyFS {
+  constructor (isWeb, isVM) {
+    this.isReal = !isWeb && !isVM
+    this.isVirtual = isWeb || isVM
+  }
+}
 
 export { VirtualFS, PyFS }
