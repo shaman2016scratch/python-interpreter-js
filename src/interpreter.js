@@ -1,10 +1,11 @@
+import { PyFS } from "./fs.js"
 import Error from "./error.js"
 import metadata from "./metadata.js"
 import replaces from "./replaces.js"
 import Import from "./import.js"
 
 class interpreter {
-  constructor (py, imports) {
+  constructor (py, imports, runIn) {
     this.python = py
     this.generated = `
       /*
@@ -55,6 +56,9 @@ class interpreter {
       };
     `
     this.imports = new Import(imports)
+    this.isWeb = runIn === "browser"
+    this.isVM = runIn === "safeMode"
+    this.Fs = new PyFS(this.isWeb, this.isVM)
   }
 
   interpretation () {
