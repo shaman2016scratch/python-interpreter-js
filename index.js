@@ -1,26 +1,25 @@
 import interpreter from "./src/interpreter.js"
 
 class PythonInterpreter {
-  constructor (code, type, imports) {
+  constructor (code, imports) {
     this.code = code
-    this.type = type
     this.imports = imports
   }
 
-  async runAsEval () {
-    const result = new interpreter(this.code, imports)
+  async runAsEval (runner) {
+    const result = new interpreter(this.code, this.imports, runner)
     await result.interpretation()
     result.eval()
   }
 
-  async runAsFunction () {
-    const result = new interpreter(this.code, imports)
+  async runAsFunction (runner) {
+    const result = new interpreter(this.code, this.imports, runner)
     await result.interpretation()
     result.func()
   }
 
-  async interpretation () {
-    const result = new interpreter(this.code, imports)
+  async interpretation (runner) {
+    const result = new interpreter(this.code, this.imports, runner)
     await result.interpretation()
     return result.generated
   }
