@@ -7,6 +7,8 @@ class Import {
   install (name, version) {}
 
   import (name) {}
+
+  addPackage (data) {}
 }
 
 export default Import
