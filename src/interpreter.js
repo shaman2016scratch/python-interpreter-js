@@ -62,13 +62,20 @@ class interpreter {
     let interpreterData = {
       line: -1,
       symbol: -1,
-      tabs: ""
+      tabs: "",
+      tabLevels: []
     }
     const lines = code.split("\n")
     const tab = "\t"
+    const tab2 = "\t\t"
     for (interpreterData.line = 0; interpreterData.line < lines.length; interpreterData.line++) {
       const line = lines[interpreterData.line]
       const symbols = line.split("")
+      if (line.startWith([interpreterData.tabs, tab2].join())) {
+        const error = new Error("Invalid tabs", interpreterData)
+        console.error(error.syntax())
+        break
+      }
       for(interpreterData.symbol = 0; interpreterData.symbol < symbols.length; interpreterData.symbol++) {
         const getSymbol = (s) => {
           symbols[s]
@@ -82,14 +89,12 @@ class interpreter {
             interpreterData.symbol = interpreterData.symbol + 5
           } else if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2)].join("") === "def") {
             this.generated += replaces.defStart
-            interpreterData.tabs += [tab, tab].join("")
-            interpreterData.symbol = interpreterData.symbol + 2
-          } else if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2)].join("") === "err") {
-            this.generated += `сonsole.error('')`
+            interpreterData.tabs += tab2
             interpreterData.symbol = interpreterData.symbol + 2
           } else {
             const error = new Error(`Unknown command`, interpreterData)
-            error.syntax()
+            console.error(error.syntax())
+            break
           }
         }
       }
