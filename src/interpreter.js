@@ -1,5 +1,5 @@
 import { PyFS } from "./fs.js"
-import Error from "./error.js"
+import PyError from "./error.js"
 import metadata from "./metadata.js"
 import replaces from "./replaces.js"
 import Import from "./import.js"
@@ -20,6 +20,7 @@ class interpreter {
         complex: undefined,
         bool: typeof true,
         list: typeof [],
+        object: typeof {},
         function: typeof (() => {}),
         class: typeof (class { constructor () {} })
       };
@@ -27,24 +28,21 @@ class interpreter {
         string: 'str',
         number: 'int',
         boolean: 'bool',
-        array: 'object'
+        object: 'object',
+        array: 'list'
       };
       let variables = {
         str: function (text) {
-          return toString(text);
+          return String(text);
         },
         int: function (num) {
-          return +num;
+          return Number(num);
         },
         bool: function (bool) {
-          if (bool) {
-            return true;
-          } else {
-            return false;
-          };
+          return Boolean(bool)
         },
         type: function (text) {
-          return jsTypes[typeof text];
+          return ((typeof text !== "object") ? jsTypes[typeof text] : (Array.isArray(text) ? 'array' : 'object'))
         }
       };
       let packages = [];
@@ -62,7 +60,7 @@ class interpreter {
   }
 
   interpretation () {
-    const code = py
+    const code = this.python
     let interpreterData = {
       line: -1,
       symbol: -1,
@@ -75,8 +73,8 @@ class interpreter {
     for (interpreterData.line = 0; interpreterData.line < lines.length; interpreterData.line++) {
       const line = lines[interpreterData.line]
       const symbols = line.split("")
-      if (line.startWith([interpreterData.tabs, tab2].join())) {
-        const error = new Error("Invalid tabs", interpreterData)
+      if (line.startsWith([interpreterData.tabs, tab2].join())) {
+        const error = new PyError("Invalid tabs", interpreterData)
         console.error(error.syntax())
         break
       }
