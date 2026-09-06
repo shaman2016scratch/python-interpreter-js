@@ -94,7 +94,7 @@ class interpreter {
             interpreterData.tabs += tab2
             interpreterData.symbol = interpreterData.symbol + 2
           } else {
-            const error = new Error(`Unknown command`, interpreterData)
+            const error = new PyError(`Unknown command`, interpreterData)
             console.error(error.syntax())
             break
           }
