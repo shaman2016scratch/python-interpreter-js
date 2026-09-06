@@ -78,19 +78,27 @@ class interpreter {
         console.error(error.syntax())
         break
       }
+      const getSymbol = (s) => {
+        return symbols[s]
+      }
+      let target = ""
       for(interpreterData.symbol = 0; interpreterData.symbol < symbols.length; interpreterData.symbol++) {
-        const getSymbol = (s) => {
-          symbols[s]
-        }
         const sNum = interpreterData.symbol
         const symbol = getSymbol(sNum)
         if (sNum === 0) {
           if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2), getSymbol(sNum + 3)].join("") === "from") {
             interpreterData.symbol = interpreterData.symbol + 3
+            target = "import-from"
           } else if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2), getSymbol(sNum + 3), getSymbol(sNum + 4), getSymbol(sNum + 5)].join("") === "import") {
             interpreterData.symbol = interpreterData.symbol + 5
+            target = "import"
           } else if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2)].join("") === "def") {
             this.generated += replaces.defStart
+            interpreterData.tabs += tab2
+            interpreterData.symbol = interpreterData.symbol + 2
+            target = "def"
+          } else if ([symbol, getSymbol(sNum + 1), getSymbol(sNum + 2), getSymbol(sNum + 3), getSymbol(sNum + 4), getSymbol(sNum + 5)].join("") === "input(") {
+            this.generated += replaces.input
             interpreterData.tabs += tab2
             interpreterData.symbol = interpreterData.symbol + 2
           } else {
